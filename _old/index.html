@@ -1,0 +1,84 @@
+
+<!doctype html>
+<html>
+	<head>
+		<title>Cube Rotation</title>
+		<style>
+			
+			
+		</style>
+	</head>
+	<body>
+		<script src="js/three.min.js"></script>
+		<script>
+			
+			
+			
+	
+	//Make Cube Function
+	
+	
+	//Call list of cubes in random places
+	for (var i = 0; i < 100; i++){
+			var cubePositionX = Math.floor(Math.random() * 17) - 8;
+			var cubePositionY = Math.floor(Math.random() * 17) - 8;
+			var cubePositionZ = Math.floor(Math.random() * 17) - 8;
+			makeCube(cubePositionX, cubePositionY, cubePositionZ);
+			cubePositionXArray.push(cubePositionX);
+			cubePositionYArray.push(cubePositionY);
+			cubePositionZArray.push(cubePositionZ);
+	}
+			
+			
+			//RENDER FUNCTION
+			var render = function(){
+				
+				requestAnimationFrame( render );
+				wave_array = new Uint8Array(analyser.frequencyBinCount);
+				analyser.getByteFrequencyData(wave_array);
+				
+				var wave_array_sum = 0;
+				
+				//finds avergage of the frequencies
+				for (var i = 0; i < wave_array.length; i++){
+					wave_array_sum += parseInt( wave_array[i], 10); 
+				}
+				
+				var avgFreq = wave_array_sum/wave_array.length;
+				var moveRandom = Math.floor(Math.random() * 21) - 10;
+				
+				var rotateFactorAvg = (avgFreq * 0.0001) + 0.002;
+				
+				
+				
+				if (avgFreq > 0) {
+					
+				//ROTATE PIVOT	
+				pivot.applyMatrix( new THREE.Matrix4().makeRotationZ(rotateFactorAvg));
+				pivot.applyMatrix( new THREE.Matrix4().makeRotationY(rotateFactorAvg));
+				pivot.applyMatrix( new THREE.Matrix4().makeRotationX(rotateFactorAvg));
+					
+				for (var i = 0; i < cubeArray.length; i++){
+					var cubeRandom = Math.floor(Math.random() * 21) - 10;
+					var cubeMove = (wave_array[i] * 0.009) + 1;
+					var cubeScale = (wave_array[i] * 0.001) + 0.02;
+					
+					
+					cubeArray[i].scale.set (1 + (wave_array[i]*0.005), 1 + (wave_array[i]*0.005), 1 + (wave_array[i]*0.005));
+					cubeArray[i].position.set (cubePositionXArray[i] * cubeMove, cubePositionYArray[i] * cubeMove, cubePositionZArray[i] * cubeMove );
+					cubeArray[i].rotation.set (cubeScale, cubeScale, cubeScale);
+					 
+					}
+				}
+				
+				renderer.render(scene, camera);
+			};
+			
+			render();
+		</script>
+	<div id="mp3_player">	
+		<div id = "audio_box"></div>
+		<canvas id="analyser_render"></canvas>
+		</div>
+	</body>
+</html>
