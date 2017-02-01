@@ -4,7 +4,7 @@
 requirejs.config({
 
 	//By default load any module IDs from js/lib
-	baseUrl: '/require/js/',
+	baseUrl: './js/',
 	paths: {},
 	generateSourceMaps: false,
 	preserveLicenseComments: false,
