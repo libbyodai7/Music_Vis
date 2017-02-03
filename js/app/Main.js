@@ -65,7 +65,7 @@ define(["app/MyClass"],
         {   
             // //THREE.JS SCENE
             this.scene = new THREE.Scene();
-            this.scene.fog = new THREE.FogExp2( 0xcccccc, 0.002 );
+            this.scene.fog = new THREE.FogExp2( 0xcccccc, 0.01 );
             
             //CAMERA
             this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
