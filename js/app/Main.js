@@ -83,7 +83,7 @@ define(["app/MyClass"],
 
             
             this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement );
-            this.controls.addEventListener( 'change', render );
+            //this.controls.addEventListener( 'change', ren );
             this.controls.enableZoom = false;
             
 
@@ -117,13 +117,13 @@ define(["app/MyClass"],
             this.pivot.position.set(0, 0, 0);
             this.pivot.add(this.cubeGroup);
             this.scene.add(this.pivot)
-            
+        
             
             //CREATE SHAPE
             this.color = 0xf00000;
             //Axis helper
-            var axisHelper = new THREE.AxisHelper( 5 );
-            this.scene.add(axisHelper);
+            //var axisHelper = new THREE.AxisHelper( 5 );
+            //this.scene.add(axisHelper);
 
 
             // make cubes
