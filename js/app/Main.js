@@ -35,8 +35,9 @@ define(["app/MyClass"],
         {
             //AUDIO SET UP
             this.audio = new Audio();
-            this.audio.src = 'music/Harris.mp3';
-            //audio.src = 'music/Slash_Dot_Dash.mp3';
+            //this.audio.src = 'music/Harris.mp3';
+           // this.audio.src = 'music/Slash_Dot_Dash.mp3';
+            this.audio.src = 'music/I_Blame_Coco.mp3';
             this.audio.controls = true;
             this.audio.loop = true;
             this.audio.autoplay = false;
@@ -64,16 +65,28 @@ define(["app/MyClass"],
         {   
             // //THREE.JS SCENE
             this.scene = new THREE.Scene();
+            this.scene.fog = new THREE.FogExp2( 0xcccccc, 0.002 );
             
             //CAMERA
             this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
             this.camera.position.set(0, 0, 100);
             this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
+
+
             //RENDERER
             this.renderer = new THREE.WebGLRenderer({antialias:true});
             this.renderer.setSize( window.innerWidth, window.innerHeight );
-            this.renderer.setClearColor( 0xf0f0f0 );
+            this.renderer.setClearColor( this.scene.fog.color );
+
+            //Controls
+
+            
+            this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement );
+            this.controls.addEventListener( 'change', render );
+            this.controls.enableZoom = false;
+            
+
             document.body.appendChild( this.renderer.domElement );
         }
 
